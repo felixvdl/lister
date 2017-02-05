@@ -14,6 +14,7 @@ export class Todo extends Component {
       todos: [],
       newTodo: ""
     }
+    // console.warn(JSON.stringify(this.state,null, 2))
   }
   handleChange(text) {
     this.setState({newTodo: text})
@@ -24,7 +25,10 @@ export class Todo extends Component {
   }
   render() {
     return(
-      <View>
+      <View style = {styles.container}>
+        <View style= {styles.box}>
+
+        </View>
         <TextInput
           style = {styles.input}
           value={this.state.newTodo}
@@ -38,7 +42,6 @@ export class Todo extends Component {
           {this.state.todos.map((todo,i) => (
             <Text key={i}>{todo}</Text>
           ))}
-          <Text>Hey</Text>
         </View>
       </View>
     )
@@ -46,8 +49,24 @@ export class Todo extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'lightblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   input: {
-    margin: 20,
-    height: 20
+    height: 20,
+    top: -40,
+    left : 130
+  },
+  box: {
+    backgroundColor: 'steelblue',
+    width: 30,
+    height: 30,
+    position: 'absolute',
+    top: 20,
+    left: 30,
+    borderRadius: 30
   }
 })
