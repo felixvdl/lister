@@ -3,9 +3,11 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
-  StyleSheet
+  TouchableOpacity
 } from 'react-native'
+import { styles } from './styles'
+
+
 
 export class Todo extends Component {
   constructor() {
@@ -29,44 +31,21 @@ export class Todo extends Component {
         <View style= {styles.box}>
 
         </View>
-        <TextInput
-          style = {styles.input}
-          value={this.state.newTodo}
-          onChangeText={this.handleChange.bind(this)}
-          placeholder="Type to do list"
-        />
-        <TouchableOpacity onPress={this.handlePress.bind(this)}>
-          <Text>Create</Text>
-        </TouchableOpacity>
+            <TextInput
+              style = {styles.input}
+              value={this.state.newTodo}
+              onChangeText={this.handleChange.bind(this)}
+              placeholder="Type to do list"
+            />
+            <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
+              <Text style={styles.buttonText}>Create</Text>
+            </TouchableOpacity>
         <View>
           {this.state.todos.map((todo,i) => (
-            <Text key={i}>{todo}</Text>
+            <Text style={styles.text} key={i}>{todo}</Text>
           ))}
         </View>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    height: 20,
-    top: -40,
-    left : 130
-  },
-  box: {
-    backgroundColor: 'steelblue',
-    width: 30,
-    height: 30,
-    position: 'absolute',
-    top: 20,
-    left: 30,
-    borderRadius: 30
-  }
-})
