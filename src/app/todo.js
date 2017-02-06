@@ -6,10 +6,11 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { styles } from './styles'
+import { TodoForm } from './todoform'
+import { connect } from 'react-redux'
 
 
-
-export class Todo extends Component {
+export class _Todo extends Component {
   constructor() {
     super()
     this.state = {
@@ -22,20 +23,8 @@ export class Todo extends Component {
     this.setState({newTodo: text})
   }
   handlePress() {
-    fetch('http://localhost:3000/todos', {
-      method: 'post',
-      body: JSON.stringify({
-        name: this.state.newTodo
-      }),
-      headers: {
-        'content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      const todos = [...this.state.todos, data]
-      this.setState({todos, newTodo: ""})
-    })
+    this.props.createTodo(this.state.newTodo)
+    this.setState({newTodo: ""})
   }
   render() {
     return(
@@ -43,15 +32,11 @@ export class Todo extends Component {
         <View style= {styles.box}>
 
         </View>
-            <TextInput
-              style = {styles.input}
-              value={this.state.newTodo}
-              onChangeText={this.handleChange.bind(this)}
-              placeholder="Type to do list"
-            />
-            <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
-              <Text style={styles.buttonText}>Create</Text>
-            </TouchableOpacity>
+        <TodoForm
+          handlePress={this.handlePress.bind(this)}
+          handleChange={this.handleChange.bind(this)}
+          value={this.state.newTodo}
+        />
         <View>
           {this.state.todos.map((todo,i) => (
             <Text style={styles.text} key={i}>{todo.name}</Text>
@@ -61,3 +46,15 @@ export class Todo extends Component {
     )
   }
 }
+
+const mapActionsToProps = (dispatch) => ({
+  createTodo(todo) {
+    dispatch({type: 'CREATE_TODO',payload: todo})
+  }
+})
+
+const mapStateToProps = (state) => ({
+  todos: state.todos
+})
+
+export const Todo = connect(mapStateToProps, mapActionsToProps)(_Todo)
