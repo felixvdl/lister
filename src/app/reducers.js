@@ -1,5 +1,6 @@
 //given a state, actiont hat was called, return new state
-// we need redux
+// we need redux because it is predictable, you can see whats happening to the state, and can only modify states by firing an actiont
+
 export const ADD_POST = 'ADD_POST'
 const  FETCH_POSTS = 'FETCH_POSTS'
 const FETCH_POSTS_COMPLETE = 'FETCH_POSTS_COMPLETE'
