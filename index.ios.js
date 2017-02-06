@@ -9,8 +9,13 @@
  import { AppRegistry, StyleSheet } from 'react-native';
  import { Todo } from './src/app/todo';
  import { Reddit } from './src/app/Reddit'
+ import { Provider } from 'react-redux'
+ import { store } from './src/app/store'
 
- const Main = () => (<Todo />)
+ const Main = () => (
+   <Provider store={store}>
+     <Todo />
+   </Provider>)
 
  const styles = StyleSheet.create({
    container: {

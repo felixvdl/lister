@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { styles } from './styles'
-
+import { Reddit } from './Reddit'
 
 
 export class Todo extends Component {
@@ -40,6 +40,7 @@ export class Todo extends Component {
   render() {
     return(
       <View style = {styles.container}>
+        <Reddit />
         <View style= {styles.box}>
 
         </View>
