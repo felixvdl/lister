@@ -26,3 +26,7 @@ const reddit = (state = [
 }
 
 export const reducer = combineReducers({reddit})
+
+// if you have application wide states, and they are lcoally, you don't know who is changing the states
+// redux is flux but reducing things, states are in one place, so you can do things like timetravel, logging
+// the reducers are pure functions, so there are no side effects and the state is exactly what you described it to be, making it a lot more predictable
