@@ -16,8 +16,7 @@ export class Todo extends Component {
     super()
     this.state = {
       todos: [],
-      newTodo: "",
-      done: false
+      newTodo: ""
     }
     // console.warn(JSON.stringify(this.state,null, 2))
   }
@@ -40,10 +39,9 @@ export class Todo extends Component {
       this.setState({todos, newTodo: ""})
     })
   }
-  handleComplete() {
-    this.setState({
-      done: !(this.state.done)
-    })
+  handleDelete(idx) {
+      const todos = [...this.state.todos.slice(0,idx), ...this.state.todos.slice(idx + 1)];
+      this.setState({todos})
   }
   render() {
     return(
@@ -64,7 +62,7 @@ export class Todo extends Component {
         <View style = {styles.listItems}>
           <ScrollView>
               {this.state.todos.map((todo,i) => (
-                <ListItem todo={todo} key={i}/>
+                <ListItem todo={todo} idx={i} key={i} handleDelete={this.handleDelete.bind(this)}/>
               ))}
           </ScrollView>
         </View>
