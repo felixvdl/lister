@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { styles } from './styles'
 
 export class ListItem extends React.Component {
   constructor() {
@@ -17,7 +18,7 @@ export class ListItem extends React.Component {
     return(
       <View style= {styles.itemBox}>
         <Text>
-          <Text style={this.state.done ? styles.done : styles.notDone} key={i}>{todo.name}</Text>
+          <Text style={this.state.done ? styles.done : styles.notDone}>{this.props.todo.name}</Text>
           <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
             <Text style={styles.optionText}>done</Text>
           </TouchableOpacity>

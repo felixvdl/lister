@@ -7,6 +7,7 @@ import {
   ScrollView
 } from 'react-native'
 import { styles } from './styles'
+import { ListItem } from './listItem'
 
 
 
@@ -63,17 +64,7 @@ export class Todo extends Component {
         <View style = {styles.listItems}>
           <ScrollView>
               {this.state.todos.map((todo,i) => (
-                <View style= {styles.itemBox}>
-                  <Text>
-                    <Text style={this.state.done ? styles.done : styles.notDone} key={i}>{todo.name}</Text>
-                    <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
-                      <Text style={styles.optionText}>done</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.itemDelete}>
-                      <Text style={styles.optionText}>delete</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
+                <ListItem todo={todo} key={i}/>
               ))}
           </ScrollView>
         </View>

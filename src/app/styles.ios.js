@@ -50,10 +50,13 @@ export const styles = StyleSheet.create({
   },
   notDone: {
     fontSize: 11,
+    fontWeight: 'bold'
   },
   done: {
     textDecorationLine: 'line-through',
-    fontSize: 11
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: 'lightgrey'
   },
   optionText: {
     fontSize: 10
