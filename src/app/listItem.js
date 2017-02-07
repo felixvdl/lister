@@ -20,7 +20,7 @@ export class ListItem extends React.Component {
         <Text>
           <Text style={this.state.done ? styles.done : styles.notDone}>{this.props.todo.name}</Text>
           <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
-            <Text style={styles.optionText}>done</Text>
+            <Text style={styles.optionText}>{this.state.done ? "undo" : "done"}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.itemDelete}>
             <Text style={styles.optionText}>delete</Text>

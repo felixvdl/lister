@@ -19,17 +19,20 @@ export const styles = StyleSheet.create({
     borderRadius: 30
   },
   buttonText: {
-    color: '#2b4163',
-    fontSize: 12,
+    color: '#9df279',
+    fontSize: 13,
+    fontWeight: 'bold'
   },
   button: {
-    borderWidth: 1,
-    borderColor: '#2b4163',
+    borderWidth: 2,
+    borderColor: '#9df279',
     padding: 2,
-    width: 50,
-    borderRadius: 7,
+    width: 25,
+    height: 25,
+    borderRadius: 30,
     left: 240,
-    top: 20
+    top: 20,
+    alignItems: 'center',
   },
   listItems: {
     top: 80,
