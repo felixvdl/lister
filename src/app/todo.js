@@ -3,7 +3,8 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native'
 import { styles } from './styles'
 
@@ -14,7 +15,8 @@ export class Todo extends Component {
     super()
     this.state = {
       todos: [],
-      newTodo: ""
+      newTodo: "",
+      done: false
     }
     // console.warn(JSON.stringify(this.state,null, 2))
   }
@@ -38,7 +40,9 @@ export class Todo extends Component {
     })
   }
   handleComplete() {
-
+    this.setState({
+      done: !(this.state.done)
+    })
   }
   render() {
     return(
@@ -57,19 +61,21 @@ export class Todo extends Component {
           </TouchableOpacity>
         </View>
         <View style = {styles.listItems}>
-            {this.state.todos.map((todo,i) => (
-              <View style= {styles.itemBox}>
-                <Text>
-                  <Text style={styles.itemText} key={i}>{todo.name}</Text>
-                  <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
-                    <Text style={styles.optionText}>done</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.itemDelete}>
-                    <Text style={styles.optionText}>delete</Text>
-                  </TouchableOpacity>
-                </Text>
-              </View>
-            ))}
+          <ScrollView>
+              {this.state.todos.map((todo,i) => (
+                <View style= {styles.itemBox}>
+                  <Text>
+                    <Text style={this.state.done ? styles.done : styles.notDone} key={i}>{todo.name}</Text>
+                    <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
+                      <Text style={styles.optionText}>done</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemDelete}>
+                      <Text style={styles.optionText}>delete</Text>
+                    </TouchableOpacity>
+                  </Text>
+                </View>
+              ))}
+          </ScrollView>
         </View>
     </View>
     )

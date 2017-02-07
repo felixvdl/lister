@@ -48,9 +48,12 @@ export const styles = StyleSheet.create({
     height: 10,
     left: 240
   },
-  itemText: {
+  notDone: {
     fontSize: 11,
-
+  },
+  done: {
+    textDecorationLine: 'line-through',
+    fontSize: 11
   },
   optionText: {
     fontSize: 10
