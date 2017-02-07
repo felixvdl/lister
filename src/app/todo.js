@@ -3,9 +3,11 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native'
 import { styles } from './styles'
+import { ListItem } from './listItem'
 
 
 
@@ -37,27 +39,34 @@ export class Todo extends Component {
       this.setState({todos, newTodo: ""})
     })
   }
+  handleDelete(idx) {
+      const todos = [...this.state.todos.slice(0,idx), ...this.state.todos.slice(idx + 1)];
+      this.setState({todos})
+  }
   render() {
     return(
-      <View style = {styles.container}>
-        <View style= {styles.box}>
-
+      <View style={styles.container}>
+        <View style= {styles.header}>
+          <View style= {styles.box}>
+          </View>
+          <TextInput
+            style = {styles.input}
+            value={this.state.newTodo}
+            onChangeText={this.handleChange.bind(this)}
+            placeholder="Add a chore"
+          />
+          <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
+              <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
         </View>
-            <TextInput
-              style = {styles.input}
-              value={this.state.newTodo}
-              onChangeText={this.handleChange.bind(this)}
-              placeholder="Type to do list"
-            />
-            <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
-              <Text style={styles.buttonText}>Create</Text>
-            </TouchableOpacity>
-        <View>
-          {this.state.todos.map((todo,i) => (
-            <Text style={styles.text} key={i}>{todo.name}</Text>
-          ))}
+        <View style = {styles.listItems}>
+          <ScrollView>
+              {this.state.todos.map((todo,i) => (
+                <ListItem todo={todo} idx={i} key={i} handleDelete={this.handleDelete.bind(this)}/>
+              ))}
+          </ScrollView>
         </View>
-      </View>
+    </View>
     )
   }
 }
