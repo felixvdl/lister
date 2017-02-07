@@ -37,9 +37,12 @@ export class Todo extends Component {
       this.setState({todos, newTodo: ""})
     })
   }
+  handleComplete() {
+
+  }
   render() {
     return(
-      <View>
+      <View style={styles.container}>
         <View style= {styles.header}>
           <View style= {styles.box}>
           </View>
@@ -47,15 +50,25 @@ export class Todo extends Component {
             style = {styles.input}
             value={this.state.newTodo}
             onChangeText={this.handleChange.bind(this)}
-            placeholder="Type to do list"
+            placeholder="Add a chore"
           />
           <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
-            <Text style={styles.buttonText}>Create</Text>
+              <Text style={styles.buttonText}>Create</Text>
           </TouchableOpacity>
         </View>
         <View style = {styles.listItems}>
             {this.state.todos.map((todo,i) => (
-              <Text style={styles.text} key={i}>{todo.name}</Text>
+              <View style= {styles.itemBox}>
+                <Text>
+                  <Text style={styles.itemText} key={i}>{todo.name}</Text>
+                  <TouchableOpacity onPress={this.handleComplete.bind(this)} style={styles.itemComplete}>
+                    <Text style={styles.optionText}>done</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.itemDelete}>
+                    <Text style={styles.optionText}>delete</Text>
+                  </TouchableOpacity>
+                </Text>
+              </View>
             ))}
         </View>
     </View>

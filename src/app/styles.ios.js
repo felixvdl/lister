@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     height: 20,
     top: 40,
     left : 80,
-    width: 130
+    width: 130,
   },
   box: {
     backgroundColor: '#2b4163',
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
-    borderColor: 'steelblue',
+    borderColor: '#2b4163',
     padding: 2,
     width: 50,
     borderRadius: 7,
@@ -32,6 +32,32 @@ export const styles = StyleSheet.create({
     top: 20
   },
   listItems: {
-    top: 120
+    top: 80,
+    borderTopColor: 'lightgrey',
+    borderTopWidth: 1,
+    left: 10
+
+  },
+  itemBox: {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    padding: 10,
+  },
+  itemComplete: {
+    width: 50,
+    height: 10,
+    left: 240
+  },
+  itemText: {
+    fontSize: 11,
+
+  },
+  optionText: {
+    fontSize: 10
+  },
+  itemDelete: {
+    width: 50,
+    height: 10,
+    left: 290
   }
 })
