@@ -18,12 +18,18 @@ export const styles = StyleSheet.create({
     left: 30,
     borderRadius: 30
   },
-  buttonText: {
+  buttonTextAdd: {
     color: '#9df279',
     fontSize: 13,
     fontWeight: 'bold'
   },
-  button: {
+  buttonTextClear: {
+    color: '#e53b3b',
+    fontSize: 10,
+    top: 3.5,
+    fontWeight: 'bold'
+  },
+  buttonAdd: {
     borderWidth: 2,
     borderColor: '#9df279',
     padding: 2,
@@ -33,6 +39,16 @@ export const styles = StyleSheet.create({
     left: 240,
     top: 20,
     alignItems: 'center',
+  },
+  buttonClear: {
+    left: 300,
+    borderWidth: 2,
+    borderColor: '#e53b3b',
+    borderRadius: 20,
+    width: 40,
+    height: 25,
+    alignItems: 'center',
+    top: -5
   },
   listItems: {
     top: 80,

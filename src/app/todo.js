@@ -55,8 +55,11 @@ export class Todo extends Component {
             onChangeText={this.handleChange.bind(this)}
             placeholder="Add a chore"
           />
-          <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
-              <Text style={styles.buttonText}>+</Text>
+          <TouchableOpacity style={styles.buttonAdd} onPress={this.handlePress.bind(this)}>
+              <Text style={styles.buttonTextAdd}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonClear} onPress={this.handlePress.bind(this)}>
+              <Text style={styles.buttonTextClear}>clear</Text>
           </TouchableOpacity>
         </View>
         <View style = {styles.listItems}>
