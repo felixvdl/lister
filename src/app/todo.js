@@ -43,6 +43,9 @@ export class Todo extends Component {
       const todos = [...this.state.todos.slice(0,idx), ...this.state.todos.slice(idx + 1)];
       this.setState({todos})
   }
+  handleClear() {
+    this.setState({todos: []})
+  }
   render() {
     return(
       <View style={styles.container}>
@@ -58,7 +61,7 @@ export class Todo extends Component {
           <TouchableOpacity style={styles.buttonAdd} onPress={this.handlePress.bind(this)}>
               <Text style={styles.buttonTextAdd}>+</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonClear} onPress={this.handlePress.bind(this)}>
+          <TouchableOpacity style={styles.buttonClear} onPress={this.handleClear.bind(this)}>
               <Text style={styles.buttonTextClear}>clear</Text>
           </TouchableOpacity>
         </View>
