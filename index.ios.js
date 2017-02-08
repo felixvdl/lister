@@ -11,7 +11,7 @@
  import { Reddit } from './src/app/Reddit'
  import { TodoLists } from './src/app/todoLists'
 
- const Main = () => (<Todo/>)
+ const Main = () => (<TodoLists/>)
 
 
 

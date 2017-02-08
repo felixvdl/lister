@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
+import { ListItem } from './todoListsItem'
 
 // create new component for seperate list items, and implement a delete funcions
 
@@ -28,7 +29,9 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists, this.state.newTodoList]
     this.setState({todoLists, newTodoList: ""})
   }
-  handleDelete() {}
+  handleDelete() {
+
+  }
   render() {
     return(
       <View>
@@ -51,12 +54,7 @@ export class TodoLists extends Component {
         <View style={styles.todoListItems}>
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
-              <View style={styles.todoListBox} idx={i} key={i}>
-                  <Text style={styles.todoListItemsText}>{todoList}</Text>
-                  <TouchableOpacity onPress={ () => this.props.handleDelete.call(this, this.props.idx)}>
-                    <Text style={styles.todoListItemsDelete}>delete</Text>
-                  </TouchableOpacity>
-              </View>
+              <ListItem todoList={todoList} idx={i} key={i} handleDelete={this.handleDelete.bind(this)}/>
             ))}
           </ScrollView>
         </View>
@@ -101,30 +99,12 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     top: 0.3
   },
-  todoListBox: {
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 2,
-    borderTopColor: 'lightgrey',
-    padding: 10,
-    width: width * 0.4,
-    alignItems: 'center'
 
-  },
   todoListItems: {
     top: 38,
     left: width * 0.3,
     width: width * 0.4,
   },
-  todoListItemsText: {
-    color: '#2b4163',
-    fontWeight: 'bold',
-  },
-  todoListItemsDelete: {
-    color: '#e53b3b',
-    backgroundColor: 'transparent',
-    top: 4,
-    fontSize: 10
 
-  },
 
 })
