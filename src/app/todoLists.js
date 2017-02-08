@@ -29,8 +29,9 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists, this.state.newTodoList]
     this.setState({todoLists, newTodoList: ""})
   }
-  handleDelete() {
-
+  handleDelete(idx) {
+    const todoLists = [...this.state.todoLists.slice(0,idx), ... this.state.todoLists.slice(idx + 1)]
+    this.setState({todoLists})
   }
   render() {
     return(
