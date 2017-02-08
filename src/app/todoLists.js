@@ -98,7 +98,8 @@ export const styles = StyleSheet.create({
     color: '#9df279',
     fontSize: 14,
     fontWeight: 'bold',
-    top: 0.3
+    top: 0.3,
+    backgroundColor: 'transparent'
   },
 
   todoListItems: {

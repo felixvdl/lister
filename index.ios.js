@@ -10,8 +10,9 @@
  import { Todo } from './src/app/todo';
  import { Reddit } from './src/app/Reddit'
  import { TodoLists } from './src/app/todoLists'
+ import { MainPage } from './src/app/MainPage'
 
- const Main = () => (<TodoLists/>)
+ const Main = () => (<MainPage/>)
 
 
 
