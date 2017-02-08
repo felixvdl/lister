@@ -19,6 +19,9 @@ export class TodoLists extends Component {
       newTodoList: ""
     }
   }
+  handleChange(text) {
+    this.setState({newTodoList: text})
+  }
   render() {
     return(
       <View style={styles.container}>
@@ -27,6 +30,12 @@ export class TodoLists extends Component {
             Lister
           </Text>
         </View>
+        <TextInput
+          style= {styles.input}
+          value={this.state.newTodoList}
+          onChangeText={this.handleChange.bind(this)}
+          placeholder="Add a list"
+        />
       </View>
     )
   }
@@ -48,5 +57,12 @@ export const styles = StyleSheet.create({
   },
   container: {
 
+  },
+  input: {
+    width: width* 0.6,
+    top: 40,
+    height: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgrey'
   }
 })
