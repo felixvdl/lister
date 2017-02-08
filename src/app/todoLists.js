@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
+import { ListItem } from './todoListsItem'
 
 // create new component for seperate list items, and implement a delete funcions
 
@@ -28,15 +29,24 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists, this.state.newTodoList]
     this.setState({todoLists, newTodoList: ""})
   }
-  handleDelete() {}
+  handleDelete(idx) {
+    const todoLists = [...this.state.todoLists.slice(0,idx), ... this.state.todoLists.slice(idx + 1)]
+    this.setState({todoLists})
+  }
+  handleForward() {
+    this.props.onForward
+  }
+  //change hey to nextpage or put it inside the lists
   render() {
     return(
       <View>
         <View style = {styles.header}>
           <View style={styles.title}>
-            <Text style={styles.titleText}>
-              Lister
-            </Text>
+            <TouchableOpacity onPress={this.props.onForward}>
+              <Text style={styles.titleText}>
+                Lister
+              </Text>
+            </TouchableOpacity>
           </View>
           <TextInput
             style= {styles.input}
@@ -51,11 +61,13 @@ export class TodoLists extends Component {
         <View style={styles.todoListItems}>
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
-              <View style={styles.todoListBox} idx={i} key={i}>
-                  <Text style={styles.todoListItemsText}>{todoList}</Text>
-                  <TouchableOpacity onPress={ () => this.props.handleDelete.call(this, this.props.idx)}>
-                    <Text style={styles.todoListItemsDelete}>delete</Text>
-                  </TouchableOpacity>
+              <View>
+                <ListItem todoList={todoList} idx={i} key={i} handleForward={this.handleForward.bind(this)} handleDelete={this.handleDelete.bind(this)}/>
+                <TouchableOpacity onPress={this.props.onForward}>
+                  <Text>
+                    hey
+                  </Text>
+                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>
@@ -64,6 +76,11 @@ export class TodoLists extends Component {
     )
   }
 }
+
+TodoLists.propTypes = {
+  title: PropTypes.string.isRequired,
+  onForward: PropTypes.func.isRequired,
+};
 
 export const styles = StyleSheet.create({
   title: {
@@ -99,32 +116,15 @@ export const styles = StyleSheet.create({
     color: '#9df279',
     fontSize: 14,
     fontWeight: 'bold',
-    top: 0.3
+    top: 0.3,
+    backgroundColor: 'transparent'
   },
-  todoListBox: {
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 2,
-    borderTopColor: 'lightgrey',
-    padding: 10,
-    width: width * 0.4,
-    alignItems: 'center'
 
-  },
   todoListItems: {
     top: 38,
     left: width * 0.3,
     width: width * 0.4,
   },
-  todoListItemsText: {
-    color: '#2b4163',
-    fontWeight: 'bold',
-  },
-  todoListItemsDelete: {
-    color: '#e53b3b',
-    backgroundColor: 'transparent',
-    top: 4,
-    fontSize: 10
 
-  },
 
 })
