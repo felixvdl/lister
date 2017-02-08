@@ -1,5 +1,5 @@
 # todo-ios-app
-A basic ToDo app written in React Native alowing users to
+A basic iOS ToDo app written in React Native alowing users to
  * Create/Delete lists
  * Create tasks inside tese lists
  * delete these tasks
