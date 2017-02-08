@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Navigator } from 'react-native';
 import { Todo } from './todo';
 import { TodoLists } from './todoLists';
-
+// need to make data persistent so new lists get stored, change HEY to next page
 export class MainPage extends Component {
   renderScene(route, navigator) {
     if(route.index === 0) {

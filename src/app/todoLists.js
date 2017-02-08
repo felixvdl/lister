@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
   View,
   Text,
@@ -33,14 +33,20 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists.slice(0,idx), ... this.state.todoLists.slice(idx + 1)]
     this.setState({todoLists})
   }
+  handleForward() {
+    this.props.onForward
+  }
+  //change hey to nextpage or put it inside the lists
   render() {
     return(
       <View>
         <View style = {styles.header}>
           <View style={styles.title}>
-            <Text style={styles.titleText}>
-              Lister
-            </Text>
+            <TouchableOpacity onPress={this.props.onForward}>
+              <Text style={styles.titleText}>
+                Lister
+              </Text>
+            </TouchableOpacity>
           </View>
           <TextInput
             style= {styles.input}
@@ -55,7 +61,14 @@ export class TodoLists extends Component {
         <View style={styles.todoListItems}>
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
-              <ListItem todoList={todoList} idx={i} key={i} handleDelete={this.handleDelete.bind(this)}/>
+              <View>
+                <ListItem todoList={todoList} idx={i} key={i} handleForward={this.handleForward.bind(this)} handleDelete={this.handleDelete.bind(this)}/>
+                <TouchableOpacity onPress={this.props.onForward}>
+                  <Text>
+                    hey
+                  </Text>
+                </TouchableOpacity>
+              </View>
             ))}
           </ScrollView>
         </View>
@@ -63,6 +76,11 @@ export class TodoLists extends Component {
     )
   }
 }
+
+TodoLists.propTypes = {
+  title: PropTypes.string.isRequired,
+  onForward: PropTypes.func.isRequired,
+};
 
 export const styles = StyleSheet.create({
   title: {

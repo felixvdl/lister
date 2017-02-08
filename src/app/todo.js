@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
   View,
   Text,
@@ -50,8 +50,8 @@ export class Todo extends Component {
     return(
       <View style={styles.container}>
         <View style= {styles.header}>
-          <View style= {styles.box}>
-          </View>
+          <TouchableOpacity style= {styles.box} onPress={this.props.onBack}>
+          </TouchableOpacity>
           <TextInput
             style = {styles.input}
             value={this.state.newTodo}
@@ -76,3 +76,8 @@ export class Todo extends Component {
     )
   }
 }
+
+Todo.propTypes = {
+  title: PropTypes.string.isRequired,
+  onBack: PropTypes.func.isRequired,
+};

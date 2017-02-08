@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component , PropTypes} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
-
+import { TodoLists} from './todoLists'
 const width = Dimensions.get('window').width
 
 export class ListItem extends Component {
@@ -10,7 +10,9 @@ export class ListItem extends Component {
   render() {
     return(
       <View style={styles.todoListBox}>
-          <Text style={styles.todoListItemsText}>{this.props.todoList}</Text>
+          <TouchableOpacity>
+            <Text style={styles.todoListItemsText}>{this.props.todoList}</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={ () => this.props.handleDelete.call(this, this.props.idx)}>
             <Text style={styles.todoListItemsDelete}>delete</Text>
           </TouchableOpacity>
@@ -18,6 +20,8 @@ export class ListItem extends Component {
     )
   }
 }
+
+
 
 export const styles = StyleSheet.create({
   todoListBox: {
