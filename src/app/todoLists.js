@@ -9,6 +9,8 @@ import {
   Dimensions
 } from 'react-native'
 
+// create new component for seperate list items, and implement a delete funcions
+
 const width = Dimensions.get('window').width
 
 export class TodoLists extends Component {
@@ -26,6 +28,7 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists, this.state.newTodoList]
     this.setState({todoLists, newTodoList: ""})
   }
+  handleDelete() {}
   render() {
     return(
       <View>
@@ -48,7 +51,7 @@ export class TodoLists extends Component {
         <View style={styles.todoListItems}>
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
-              <View style={styles.todoListBox}>
+              <View style={styles.todoListBox} idx={i} key={i}>
                   <Text style={styles.todoListItemsText}>{todoList}</Text>
                   <TouchableOpacity onPress={ () => this.props.handleDelete.call(this, this.props.idx)}>
                     <Text style={styles.todoListItemsDelete}>delete</Text>
@@ -117,7 +120,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   todoListItemsDelete: {
-    color: 'red',
+    color: '#e53b3b',
     backgroundColor: 'transparent',
     top: 4,
     fontSize: 10
