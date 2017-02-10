@@ -11,9 +11,38 @@
  import { Reddit } from './src/app/Reddit'
  import { TodoLists } from './src/app/todoLists'
  import { MainPage } from './src/app/MainPage'
+ import { Register }from './src/app/register'
 
- const Main = () => (<MainPage/>)
+class TodoApp extends Component {
+   renderScene(route, navigator) {
+    console.log(route);
+    // if(route.name == 'root') {
+    //   return <Root navigator={navigator} />
+    // }
+    if(route.name == 'register') {
+      return <Register navigator={navigator} />
+    }
+    // if(route.name == 'login') {
+    //   return <Login navigator={navigator} />
+    // }
+    // if(route.name == 'home') {
+    //   return <Home navigator={navigator} {...route.passProps} />
+    // }
+    // if(route.name == 'update') {
+    //   return <Update navigator={navigator} {...route.passProps} />
+    // }
+  }
 
+  render() {
+    return (
+      <View style={styles.container}>
+        <Navigator
+          initialRoute={{name: 'register'}}
+          renderScene={this.renderScene.bind(this)}
+        />
+      </View>
+    );
+  }
+}
 
-
- AppRegistry.registerComponent('Todo', () => Main);
+ AppRegistry.registerComponent('Todo', () => TodoApp);
