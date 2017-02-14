@@ -1,29 +1,25 @@
 'use strict';
-
 import React, { Component } from 'react'
 import {
   StyleSheet,
   TextInput,
   TouchableHighlight,
-  AsyncStorage,
   ActivityIndicatorIOS,
+  AsyncStorage,
   Text,
-  View,
-  Alert
+  View
 } from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
 
-export class Register extends Component {
+export class Login extends Component {
   constructor(){
     super();
 
     this.state = {
       email: "",
-      name: "",
       password: "",
-      password_confirmation: "",
-      errors: [],
+      error: "",
       showProgress: false,
     }
   }
@@ -32,121 +28,83 @@ export class Register extends Component {
       name: routeName
     });
   }
-
-  async storeToken(accessToken) {
-    console.log("start storage")
-    try {
-        await AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
-        console.log("Token was stored successfull ");
-    } catch(error) {
-        console.log("Something went wrong");
-    }
+  storeToken(responseData){
+    AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
+      if(err){
+        console.log("an error");
+        throw err;
+      }
+      console.log("success");
+    }).catch((err)=> {
+        console.log("error is: " + err);
+    });
   }
-  async onRegisterPressed() {
+  async onLoginPressed() {
+    this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:3000/api/users', {
+      let response = await fetch('http://localhost:3000/api/sessions', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json',
                               },
                               body: JSON.stringify({
-                                 user: {
+                                session:{
                                   email: this.state.email,
                                   password: this.state.password,
-                                  password_confirmation: this.state.password_confirmation,
                                 }
                               })
                             });
+
       let res = await JSON.parse(response._bodyText);
       if (response.status >= 200 && response.status < 300) {
-        console.log('-----')
-        console.log(res)
-        console.log("hEYEYEYEY")
-        console.log(res.id)
-        console.log(";....")
-
           //Handle success
           let accessToken = res.auth_token;
-
+          console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          console.log("hello")
           this.redirect('home');
       } else {
           //Handle error
           let error = res;
           throw error;
       }
-    } catch(errors) {
-      //errors are in JSON form so we must parse them first.
-      let formErrors = errors;
-      //We will store all the errors in the array.
-      let errorsArray = [];
-      for(var key in formErrors) {
-        //If array is bigger than one we need to split it.
-        if(formErrors[key].length > 1) {
-            formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
-        } else {
-            errorsArray.push(`${key} ${formErrors[key]}`);
-        }
-      }
-      this.setState({errors: errorsArray})
-      this.setState({showProgress: false});
+    } catch(error) {
+        this.setState({error: error});
+        console.log("error " + error);
+        this.setState({showProgress: false});
     }
   }
   render() {
+
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>
-          Join us now!
+          Native on Rails
         </Text>
-         <TextInput
+        <TextInput
           onChangeText={ (text)=> this.setState({email: text}) }
           style={styles.input} placeholder="Email">
         </TextInput>
-
-        <TextInput
-          onChangeText={ (text)=> this.setState({name: text}) }
-          style={styles.input} placeholder="Name">
-        </TextInput>
-
         <TextInput
           onChangeText={ (text)=> this.setState({password: text}) }
           style={styles.input}
           placeholder="Password"
           secureTextEntry={true}>
         </TextInput>
-
-        <TextInput
-          onChangeText={ (text)=> this.setState({password_confirmation: text}) }
-          style={styles.input}
-          placeholder="Confirm Password"
-          secureTextEntry={true}>
-        </TextInput>
-
-        <TouchableHighlight onPress={this.onRegisterPressed.bind(this)} style={styles.button}>
+        <TouchableHighlight onPress={this.onLoginPressed.bind(this)} style={styles.button}>
           <Text style={styles.buttonText}>
-            Register
+            Login
           </Text>
         </TouchableHighlight>
 
+        <Text style={styles.error}>
+          {this.state.error}
+        </Text>
 
-        <Errors errors={this.state.errors}/>
-
-
-        {/* <ActivityIndicatorIOS animating={this.state.showProgress} size="large" style={styles.loader} />  */}
       </View>
     );
   }
-}
-
-const Errors = (props) => {
-  return (
-    <View>
-      {props.errors.map((error, i) => <Text key={i} style={styles.error}> {error} </Text>)}
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -183,6 +141,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
+    paddingTop: 10
+  },
+  success: {
+    color: 'green',
     paddingTop: 10
   },
   loader: {

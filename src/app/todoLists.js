@@ -8,34 +8,101 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
-import { ListItem } from './todoListsItem'
+import { TodoListItem } from './todoListsItem'
 
 // create new component for seperate list items, and implement a delete funcions
 
 const width = Dimensions.get('window').width
 
 export class TodoLists extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       todoLists: [],
-      newTodoList: ""
+      newTodoList: "",
+      accessToken: this.props.accessToken
     }
   }
   handleChange(text) {
     this.setState({newTodoList: text})
   }
-  handlePress() {
-    const todoLists = [...this.state.todoLists, this.state.newTodoList]
-    this.setState({todoLists, newTodoList: ""})
+  async handlePress() {
+    // const todoLists = [...this.state.todoLists, this.state.newTodoList]
+    // this.setState({todoLists, newTodoList: ""})
+    try {
+      let response = await fetch('http://localhost:3000/api/lists', {
+                              method: 'POST',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'Authorization': this.state.accessToken
+                              },
+                              body: JSON.stringify({
+                                list:{
+                                  name: this.state.newTodoList,
+                                }
+                              })
+                            })
+      let res = await JSON.parse(response._bodyText)
+      const todoLists = [...this.state.todoLists, res]
+      this.setState({todoLists, newTodoList: ""})
+    } catch(error) {
+        console.log("error: " + error)
+    }
   }
-  handleDelete(idx) {
+
+  async handleDelete(idx) {
+    try {
+      let response = await fetch('http://localhost:3000/api/lists/1', {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': this.state.accessToken
+        },
+        body: JSON.stringify({
+          list: {
+            id: idx
+          }
+        })
+      })
+    }
+    catch(error) {
+        console.log("error: " + error)
+    }
     const todoLists = [...this.state.todoLists.slice(0,idx), ... this.state.todoLists.slice(idx + 1)]
     this.setState({todoLists})
   }
-  handleForward() {
-    this.props.onForward
+  redirectNext(routeName, id) {
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        accessToken: this.state.accessToken,
+        id: id
+      }
+    });
   }
+  componentDidMount() {
+    this.fetchLists()
+  }
+
+  async fetchLists() {
+    try {
+      let response = await fetch('http://localhost:3000/api/lists', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': this.state.accessToken
+        }
+      })
+    let res = await JSON.parse(response._bodyText)
+    this.setState({todoLists: res})
+    } catch(error) {
+        console.log("error: " + error)
+    }
+  }
+
   //change hey to nextpage or put it inside the lists
   render() {
     return(
@@ -62,12 +129,7 @@ export class TodoLists extends Component {
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
               <View>
-                <ListItem todoList={todoList} idx={i} key={i} handleForward={this.handleForward.bind(this)} handleDelete={this.handleDelete.bind(this)}/>
-                <TouchableOpacity onPress={this.props.onForward}>
-                  <Text>
-                    hey
-                  </Text>
-                </TouchableOpacity>
+                <TodoListItem todoList={todoList.name} idx={i} key={i} redirectNext={this.redirectNext.bind(this)} handleDelete={this.handleDelete.bind(this)}/>
               </View>
             ))}
           </ScrollView>
@@ -76,11 +138,6 @@ export class TodoLists extends Component {
     )
   }
 }
-
-TodoLists.propTypes = {
-  title: PropTypes.string.isRequired,
-  onForward: PropTypes.func.isRequired,
-};
 
 export const styles = StyleSheet.create({
   title: {

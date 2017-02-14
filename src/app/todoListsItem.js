@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-nati
 import { TodoLists} from './todoLists'
 const width = Dimensions.get('window').width
 
-export class ListItem extends Component {
+export class TodoListItem extends Component {
   constructor() {
     super()
   }
   render() {
     return(
       <View style={styles.todoListBox}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.redirectNext.call(this, 'todoitems', this.props.idx)}>
             <Text style={styles.todoListItemsText}>{this.props.todoList}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={ () => this.props.handleDelete.call(this, this.props.idx)}>
