@@ -36,9 +36,9 @@
      if(route.name == 'todolists') {
        return <TodoLists navigator={navigator} {...route.passProps}/>
      }
-    //  if(route.name == 'todolists') {
-    //    return <Home navigator={navigator} {...route.passProps} />
-    //  }
+     if(route.name == 'todoitems') {
+       return <Todo navigator={navigator} {...route.passProps} />
+     }
     //  if(route.name == 'update') {
     //    return <Update navigator={navigator} {...route.passProps} />
     //  }

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
-import { ListItem } from './todoListsItem'
+import { TodoListItem } from './todoListsItem'
 
 // create new component for seperate list items, and implement a delete funcions
 
@@ -30,7 +30,7 @@ export class TodoLists extends Component {
     // const todoLists = [...this.state.todoLists, this.state.newTodoList]
     // this.setState({todoLists, newTodoList: ""})
     try {
-      let response = await fetch('http://localhost:3000/api/bands', {
+      let response = await fetch('http://localhost:3000/api/lists', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
@@ -38,7 +38,7 @@ export class TodoLists extends Component {
                                 'Authorization': this.state.accessToken
                               },
                               body: JSON.stringify({
-                                band:{
+                                list:{
                                   name: this.state.newTodoList,
                                 }
                               })
@@ -53,7 +53,7 @@ export class TodoLists extends Component {
 
   async handleDelete(idx) {
     try {
-      let response = await fetch('http://localhost:3000/api/bands/1', {
+      let response = await fetch('http://localhost:3000/api/lists/1', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
@@ -61,7 +61,7 @@ export class TodoLists extends Component {
           'Authorization': this.state.accessToken
         },
         body: JSON.stringify({
-          band: {
+          list: {
             id: idx
           }
         })
@@ -73,14 +73,22 @@ export class TodoLists extends Component {
     const todoLists = [...this.state.todoLists.slice(0,idx), ... this.state.todoLists.slice(idx + 1)]
     this.setState({todoLists})
   }
-
+  redirectNext(routeName, id) {
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        accessToken: this.state.accessToken,
+        id: id
+      }
+    });
+  }
   componentDidMount() {
     this.fetchLists()
   }
-  
+
   async fetchLists() {
     try {
-      let response = await fetch('http://localhost:3000/api/bands', {
+      let response = await fetch('http://localhost:3000/api/lists', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -121,7 +129,7 @@ export class TodoLists extends Component {
           <ScrollView>
             {this.state.todoLists.map((todoList, i) => (
               <View>
-                <ListItem todoList={todoList.name} idx={i} key={i} handleDelete={this.handleDelete.bind(this)}/>
+                <TodoListItem todoList={todoList.name} idx={i} key={i} redirectNext={this.redirectNext.bind(this)} handleDelete={this.handleDelete.bind(this)}/>
               </View>
             ))}
           </ScrollView>
