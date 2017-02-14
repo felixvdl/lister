@@ -14,6 +14,7 @@
  import { Register } from './src/app/register'
  import { Home } from './src/app/home'
  import { Root } from './src/app/root'
+ import { Login } from './src/app/login'
 
 
  class Main extends Component {
@@ -29,9 +30,9 @@
      if(route.name == 'register') {
        return <Register navigator={navigator} />
      }
-    //  if(route.name == 'login') {
-    //    return <Login navigator={navigator} />
-    //  }
+     if(route.name == 'login') {
+       return <Login navigator={navigator} />
+     }
     //  if(route.name == 'home') {
     //    return <Home navigator={navigator} {...route.passProps} />
     //  }

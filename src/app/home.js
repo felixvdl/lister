@@ -70,8 +70,11 @@ export class Home extends Component {
   async onDelete(){
     let access_token = this.state.accessToken
     try {
-      let response = await fetch('https://localhost:3000/api/users/'+access_token,{
+      let response = await fetch('http://localhost:3000/api/users', {
                               method: 'DELETE',
+                              headers: {
+                                'Authorization': access_token
+                              },
                             });
         let res = await response.text();
         if (response.status >= 200 && response.status < 300) {
