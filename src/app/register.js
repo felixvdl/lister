@@ -72,7 +72,7 @@ export class Register extends Component {
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
           console.log("hello")
-          this.redirect('todo');
+          this.redirect('home');
       } else {
           //Handle error
           let error = res;

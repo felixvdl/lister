@@ -76,8 +76,3 @@ export class Todo extends Component {
     )
   }
 }
-
-Todo.propTypes = {
-  title: PropTypes.string.isRequired,
-  onBack: PropTypes.func.isRequired,
-};
