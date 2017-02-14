@@ -70,7 +70,7 @@ export class Home extends Component {
   async onDelete(){
     let access_token = this.state.accessToken
     try {
-      let response = await fetch('http://localhost:3000/api/users', {
+      let response = await fetch('http://localhost:3000/api/users/1', {
                               method: 'DELETE',
                               headers: {
                                 'Authorization': access_token
@@ -115,6 +115,11 @@ export class Home extends Component {
         <TouchableHighlight onPress={this.confirmDelete.bind(this)} style={styles.button}>
           <Text style={styles.buttonText}>
             Delete Account
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.redirect.bind(this, 'todolists')} style={styles.button}>
+          <Text style={styles.buttonText}>
+            See lists
           </Text>
         </TouchableHighlight>
 

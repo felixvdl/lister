@@ -33,7 +33,10 @@
      if(route.name == 'login') {
        return <Login navigator={navigator} />
      }
-    //  if(route.name == 'home') {
+     if(route.name == 'todolists') {
+       return <TodoLists navigator={navigator} />
+     }
+    //  if(route.name == 'todolists') {
     //    return <Home navigator={navigator} {...route.passProps} />
     //  }
     //  if(route.name == 'update') {
