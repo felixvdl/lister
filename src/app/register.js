@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableHighlight,
   AsyncStorage,
-  ActivityIndicatorIOS,
   Text,
   View,
   Alert
@@ -24,7 +23,6 @@ export class Register extends Component {
       password: "",
       password_confirmation: "",
       errors: [],
-      showProgress: false,
     }
   }
   redirect(routeName, accessToken){
@@ -34,12 +32,9 @@ export class Register extends Component {
   }
 
   async storeToken(accessToken) {
-    console.log("start storage")
     try {
         await AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
-        console.log("Token was stored successfull ");
     } catch(error) {
-        console.log("Something went wrong");
     }
   }
   async onRegisterPressed() {
@@ -60,18 +55,12 @@ export class Register extends Component {
                             });
       let res = await JSON.parse(response._bodyText);
       if (response.status >= 200 && response.status < 300) {
-        console.log('-----')
-        console.log(res)
-        console.log("hEYEYEYEY")
-        console.log(res.id)
-        console.log(";....")
-
           //Handle success
           let accessToken = res.auth_token;
 
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          console.log("hello")
+
           this.redirect('home');
       } else {
           //Handle error
@@ -92,7 +81,6 @@ export class Register extends Component {
         }
       }
       this.setState({errors: errorsArray})
-      this.setState({showProgress: false});
     }
   }
   render() {
@@ -105,11 +93,11 @@ export class Register extends Component {
           onChangeText={ (text)=> this.setState({email: text}) }
           style={styles.input} placeholder="Email">
         </TextInput>
-
+{/*
         <TextInput
           onChangeText={ (text)=> this.setState({name: text}) }
           style={styles.input} placeholder="Name">
-        </TextInput>
+        </TextInput> */}
 
         <TextInput
           onChangeText={ (text)=> this.setState({password: text}) }
@@ -130,12 +118,7 @@ export class Register extends Component {
             Register
           </Text>
         </TouchableHighlight>
-
-
         <Errors errors={this.state.errors}/>
-
-
-        {/* <ActivityIndicatorIOS animating={this.state.showProgress} size="large" style={styles.loader} />  */}
       </View>
     );
   }
@@ -154,21 +137,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#32425c',
     padding: 10,
-    paddingTop: 80
+    paddingTop: 120
   },
   input: {
     height: 50,
     marginTop: 10,
     padding: 4,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#48bbec'
+    borderWidth: 0.5,
+    borderColor: '#e2e6e9'
   },
   button: {
     height: 50,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#e86c78',
     alignSelf: 'stretch',
     marginTop: 10,
     justifyContent: 'center'
@@ -180,6 +163,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
+    color: 'white'
   },
   error: {
     color: 'red',

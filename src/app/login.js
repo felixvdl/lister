@@ -20,7 +20,6 @@ export class Login extends Component {
       email: "",
       password: "",
       error: "",
-      showProgress: false,
     }
   }
   redirect(routeName, accessToken){
@@ -31,12 +30,10 @@ export class Login extends Component {
   storeToken(responseData){
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
       if(err){
-        console.log("an error");
         throw err;
       }
       console.log("success");
     }).catch((err)=> {
-        console.log("error is: " + err);
     });
   }
   async onLoginPressed() {
@@ -60,7 +57,6 @@ export class Login extends Component {
       if (response.status >= 200 && response.status < 300) {
           //Handle success
           let accessToken = res.auth_token;
-          console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
           this.redirect('home');
@@ -71,8 +67,6 @@ export class Login extends Component {
       }
     } catch(error) {
         this.setState({error: error});
-        console.log("error " + error);
-        this.setState({showProgress: false});
     }
   }
   render() {
@@ -80,7 +74,7 @@ export class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.heading}>
-          Native on Rails
+          welcome back!
         </Text>
         <TextInput
           onChangeText={ (text)=> this.setState({email: text}) }
@@ -112,9 +106,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#32425c',
     padding: 10,
-    paddingTop: 80
+    paddingTop: 150
   },
   input: {
     height: 50,
@@ -122,11 +116,11 @@ const styles = StyleSheet.create({
     padding: 4,
     fontSize: 18,
     borderWidth: 1,
-    borderColor: '#48bbec'
+    borderColor: '#e2e6e9',
   },
   button: {
     height: 50,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#e86c78',
     alignSelf: 'stretch',
     marginTop: 10,
     justifyContent: 'center'
@@ -138,6 +132,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
+    color: 'white',
+    marginBottom: 15
   },
   error: {
     color: 'red',
