@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TextInput,
   TouchableHighlight,
-  ActivityIndicatorIOS,
   AsyncStorage,
   AlertIOS,
   Text,
@@ -20,7 +19,6 @@ export class Home extends Component {
 
     this.state = {
       isLoggenIn: "",
-      showProgress: false,
       accessToken: "",
     }
   }
@@ -36,7 +34,6 @@ export class Home extends Component {
           this.setState({accessToken: accessToken})
       }
     } catch(error) {
-        console.log("Something went wrong");
         this.redirect('login');
     }
   }
@@ -45,7 +42,6 @@ export class Home extends Component {
         await AsyncStorage.removeItem(ACCESS_TOKEN)
         this.redirect('root');
     } catch(error) {
-        console.log("Something went wrong");
     }
   }
   redirect(routeName){
@@ -57,7 +53,6 @@ export class Home extends Component {
     });
   }
   onLogout(){
-    this.setState({showProgress: true})
     this.deleteToken();
   }
 
@@ -78,14 +73,12 @@ export class Home extends Component {
                             });
         let res = await response.text();
         if (response.status >= 200 && response.status < 300) {
-          console.log("success sir: " + res)
           this.redirect('root');
         } else {
           let error = res;
           throw error;
         }
     } catch(error) {
-        console.log("error: " + error)
     }
   }
   render() {
@@ -99,29 +92,32 @@ export class Home extends Component {
     return(
       <View style={styles.container}>
         {flashMessage}
-        <Text style={styles.title}> Welcome User </Text>
-        <Text style={styles.text}> Your new token is {this.state.accessToken} </Text>
 
-        <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Logout
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.redirect.bind(this, 'update')} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Update Account
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.confirmDelete.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Delete Account
-          </Text>
-        </TouchableHighlight>
+        <View style={styles.logo}>
+          <Text style={styles.logoText}>L</Text>
+        </View>
+        <Text style={styles.title}> Welcome</Text>
         <TouchableHighlight onPress={this.redirect.bind(this, 'todolists')} style={styles.button}>
           <Text style={styles.buttonText}>
             See lists
           </Text>
         </TouchableHighlight>
+        <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Logout
+          </Text>
+        </TouchableHighlight>
+        {/* <TouchableHighlight onPress={this.redirect.bind(this, 'update')} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Update Account
+          </Text>
+        </TouchableHighlight> */}
+        <TouchableHighlight onPress={this.confirmDelete.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Delete Account
+          </Text>
+        </TouchableHighlight>
+
 
 
       </View>
@@ -134,28 +130,46 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#32425c',
     padding: 10,
+    marginTop: -60
+  },
+  logo: {
+    backgroundColor: '#e86c78',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+  logoText: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold'
   },
   title: {
     fontSize: 25,
     marginTop: 15,
-    marginBottom: 15
+    marginBottom: 15,
+    color: 'white'
   },
   text: {
     marginBottom: 30
   },
   button: {
     height: 50,
-    backgroundColor: 'red',
+    backgroundColor: 'transparent',
     alignSelf: 'stretch',
     marginTop: 10,
     alignItems: 'flex-end',
     justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: '#e2e6e9'
   },
   buttonText: {
     fontSize: 22,
-    color: '#FFF',
+    color: '#e2e6e9',
     alignSelf: 'center'
   },
   flash: {
@@ -164,7 +178,5 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'center',
   },
-  loader: {
-    marginTop: 20
-  }
+
 });
