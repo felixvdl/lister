@@ -20,7 +20,6 @@ export class Login extends Component {
       email: "",
       password: "",
       error: "",
-      showProgress: false,
     }
   }
   redirect(routeName, accessToken){
@@ -31,12 +30,10 @@ export class Login extends Component {
   storeToken(responseData){
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
       if(err){
-        console.log("an error");
         throw err;
       }
       console.log("success");
     }).catch((err)=> {
-        console.log("error is: " + err);
     });
   }
   async onLoginPressed() {
@@ -60,7 +57,6 @@ export class Login extends Component {
       if (response.status >= 200 && response.status < 300) {
           //Handle success
           let accessToken = res.auth_token;
-          console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
           this.redirect('home');
@@ -71,8 +67,6 @@ export class Login extends Component {
       }
     } catch(error) {
         this.setState({error: error});
-        console.log("error " + error);
-        this.setState({showProgress: false});
     }
   }
   render() {
