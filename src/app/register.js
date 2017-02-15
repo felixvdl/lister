@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableHighlight,
   AsyncStorage,
-  ActivityIndicatorIOS,
   Text,
   View,
   Alert
@@ -24,7 +23,6 @@ export class Register extends Component {
       password: "",
       password_confirmation: "",
       errors: [],
-      showProgress: false,
     }
   }
   redirect(routeName, accessToken){
@@ -92,7 +90,6 @@ export class Register extends Component {
         }
       }
       this.setState({errors: errorsArray})
-      this.setState({showProgress: false});
     }
   }
   render() {
@@ -130,12 +127,7 @@ export class Register extends Component {
             Register
           </Text>
         </TouchableHighlight>
-
-
         <Errors errors={this.state.errors}/>
-
-
-        {/* <ActivityIndicatorIOS animating={this.state.showProgress} size="large" style={styles.loader} />  */}
       </View>
     );
   }

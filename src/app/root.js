@@ -7,7 +7,6 @@ import {
   Text,
   View
 } from 'react-native';
-
 const ACCESS_TOKEN = 'access_token';
 
 export class Root extends Component {
@@ -55,13 +54,19 @@ export class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome Friend </Text>
-        <TouchableHighlight onPress={ this.navigate.bind(this,'register') } style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={ this.navigate.bind(this, 'login') } style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
+        <View style={styles.logo}>
+          <Text style={styles.logoText}>L</Text>
+        </View>
+        <Text style={styles.title}>lister </Text>
+        <Text style={styles.description}>Todo lists made simple</Text>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <TouchableHighlight onPress={ this.navigate.bind(this,'register') } style={styles.buttonRegister}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={ this.navigate.bind(this, 'login') } style={styles.buttonLogin}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -72,25 +77,59 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#32425c',
     padding: 10,
-    paddingTop: 180
+    paddingTop: 150
   },
-  button: {
+  logo: {
+    backgroundColor: '#e86c78',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30
+  },
+  logoText: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold'
+  },
+  buttonLogin: {
     height: 50,
-    backgroundColor: '#48BBEC',
-    alignSelf: 'stretch',
+    backgroundColor: 'transparent',
+    width: 150,
     alignItems: 'center',
     marginTop: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: '#e2e6e9',
+    left: 10
+  },
+  buttonRegister: {
+    height: 50,
+    backgroundColor: 'transparent',
+    width: 150,
+    alignItems: 'center',
+    marginTop: 10,
+    justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: '#e2e6e9',
+    right: 10,
   },
   buttonText: {
     fontSize: 22,
-    color: '#FFF',
+    color: '#e2e6e9',
     alignSelf: 'center'
   },
   title: {
     fontSize: 25,
-    marginBottom: 15
+    marginBottom: 5,
+    color: 'white'
+  },
+  description: {
+    fontSize:12,
+    color: '#a1b2ce',
+    marginBottom: 20
   }
 });
