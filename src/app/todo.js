@@ -28,7 +28,7 @@ export class Todo extends Component {
 
   async fetchLists() {
     try {
-      let response = await fetch('http://localhost:3000/api/todos/' +this.state.id, {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/todos/' +this.state.id, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -47,7 +47,7 @@ export class Todo extends Component {
   }
   async handlePress() {
     try {
-      let response = await fetch('http://localhost:3000/api/todos', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/todos', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
@@ -72,7 +72,7 @@ export class Todo extends Component {
   }
   async handleDelete(idx) {
     try {
-      let response = await fetch('http://localhost:3000/api/todos/1', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/todos/1', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

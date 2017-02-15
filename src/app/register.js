@@ -39,7 +39,7 @@ export class Register extends Component {
   }
   async onRegisterPressed() {
     try {
-      let response = await fetch('http://localhost:3000/api/users', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/users', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',

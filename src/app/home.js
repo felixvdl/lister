@@ -65,7 +65,7 @@ export class Home extends Component {
   async onDelete(){
     let access_token = this.state.accessToken
     try {
-      let response = await fetch('http://localhost:3000/api/users/1', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/users/1', {
                               method: 'DELETE',
                               headers: {
                                 'Authorization': access_token

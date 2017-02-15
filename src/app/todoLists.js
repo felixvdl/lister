@@ -30,7 +30,7 @@ export class TodoLists extends Component {
     // const todoLists = [...this.state.todoLists, this.state.newTodoList]
     // this.setState({todoLists, newTodoList: ""})
     try {
-      let response = await fetch('http://localhost:3000/api/lists', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/lists', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
@@ -53,7 +53,7 @@ export class TodoLists extends Component {
 
   async handleDelete(idx) {
     try {
-      let response = await fetch('http://localhost:3000/api/lists/1', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/lists/1', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
@@ -88,7 +88,7 @@ export class TodoLists extends Component {
 
   async fetchLists() {
     try {
-      let response = await fetch('http://localhost:3000/api/lists', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/lists', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',

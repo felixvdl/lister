@@ -39,7 +39,7 @@ export class Login extends Component {
   async onLoginPressed() {
     this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:3000/api/sessions', {
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/sessions', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',

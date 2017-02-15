@@ -37,7 +37,7 @@ export class Root extends Component {
     let accessToken = token
 
     try {
-      let response = await fetch('https://localhost:3000/api/verify?session%5Baccess_token%5D='+accessToken);
+      let response = await fetch('https://tranquil-cliffs-26536.herokuapp.com/api/verify?session%5Baccess_token%5D='+accessToken);
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
         //Verified token means user is logged in so we redirect him to home.
